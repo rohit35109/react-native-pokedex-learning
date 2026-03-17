@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: TAB_BAR_PRIMARY,
         width: "70%",
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingHorizontal: 12,
-        // marginHorizontal: 8,
         borderRadius: 50,
     },
     text: {
