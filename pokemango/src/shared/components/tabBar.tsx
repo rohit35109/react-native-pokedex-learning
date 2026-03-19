@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanimated";
+import { useTabTheme } from "../context/tab-theme-context";
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -15,8 +16,11 @@ export default function TabBar({
   descriptors,
   navigation,
 }: BottomTabBarProps) {
+
+  const { tabColor } = useTabTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: tabColor }]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -59,10 +63,10 @@ export default function TabBar({
             onLongPress={onLongPress}
             style={[styles.items, { backgroundColor: isFocused ? 'white' : 'transparent' }]}
           >
-            { getIconByRouteName(route.name, isFocused ? TAB_BAR_PRIMARY : TAB_BAR_INACTIVITY) }
+            { getIconByRouteName(route.name, isFocused ? tabColor : TAB_BAR_INACTIVITY) }
             {
                 isFocused && 
-                <Animated.Text entering={FadeIn} exiting={FadeOut} style={[styles.text, { color: isFocused ? TAB_BAR_PRIMARY : TAB_BAR_INACTIVITY }]}>
+                <Animated.Text entering={FadeIn} exiting={FadeOut} style={[styles.text, { color: isFocused ? tabColor : TAB_BAR_INACTIVITY }]}>
                     {label as string}
                 </Animated.Text>
             }
