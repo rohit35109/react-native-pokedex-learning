@@ -22,7 +22,6 @@ const PagerView = ({ pokemonList }: Props) => {
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const { setTabColor } = useTabTheme();
 
-  const scrollRef = useRef<ScrollView>(null);
   const currentIndexRef = useRef<number>(0);
 
   const randomPokemon: Pokemon[] = useMemo<Pokemon[]>(() => shuffle(pokemonList), [pokemonList]);
@@ -46,15 +45,20 @@ const PagerView = ({ pokemonList }: Props) => {
   }
 
   useEffect(() => {
-    applyColorByIndex(currentIndexRef.current);
+    applyColorByIndex(0);
   }, [randomPokemon, windowWidth]);
 
   return (
     <ScrollView
-      ref={scrollRef}
       horizontal
-      decelerationRate={"fast"}
+      pagingEnabled
       snapToInterval={windowWidth}
+      disableIntervalMomentum
+      decelerationRate={"fast"}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      bounces={false}
+      overScrollMode="never"
       scrollEventThrottle={16}
       onScroll={handlePageChange}
     >
